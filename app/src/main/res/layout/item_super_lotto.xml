@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_drew_term"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="期數"/>
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_drew_term"
+        android:text="兌獎日期"/>
+
+    <TextView
+        android:id="@+id/text_end_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_date"
+        android:text="對獎最後日期"/>
+
+    <TextView
+        android:id="@+id/text_sell_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_end_date"
+        android:text="銷售金額"/>
+
+    <TextView
+        android:id="@+id/text_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_sell_amount"
+        android:text="獎金總額"/>
+
+    <LinearLayout
+        android:id="@+id/layout_first_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_total"
+        android:orientation="horizontal" />
+
+</RelativeLayout>
