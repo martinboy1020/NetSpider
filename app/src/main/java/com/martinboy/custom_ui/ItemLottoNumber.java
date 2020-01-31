@@ -1,10 +1,12 @@
-package com.martinboy.netspider;
+package com.martinboy.custom_ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.martinboy.netspider.R;
 
 import androidx.annotation.Nullable;
 

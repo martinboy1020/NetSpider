@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">NetSpider</string>
+
+    <string name="string_bank_name">銀行: %1$s</string>
+    <string name="string_money_buy">現金買入: %1$s</string>
+    <string name="string_money_sell">現金賣出: %1$s</string>
+    <string name="string_now_buy">即期買入: %1$s</string>
+    <string name="string_now_sell">即期賣出: %1$s</string>
+    <string name="string_refresh_date">刷新日期: %1$s</string>
+    <string name="string_fee">手續費: %1$s</string>
+
 </resources>
