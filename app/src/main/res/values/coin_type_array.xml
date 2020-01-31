@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <array name="coin_type_string_array">
+
+        <item>日幣</item>
+        <item>美金</item>
+
+    </array>
+
+    <array name="coin_type_array">
+
+        <item>JPY</item>
+        <item>USD</item>
+
+    </array>
+    
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_lottery"
+        android:icon="@null"
+        android:title="樂透" />
+    <item
+        android:id="@+id/item_exchange_rate"
+        android:icon="@null"
+        android:title="銀行匯率" />
+</menu>
