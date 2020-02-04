@@ -21,12 +21,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class LotteryFragment extends BaseFragment implements LotteryInterface.View {
 
     private RecyclerView lotto_list;
     private SuperLottoAdapter superLottoAdapter;
     private LotteryPresenter lotteryPresenter;
+    private SwipeRefreshLayout refresh_layout;
 
     public static LotteryFragment newInstance(String s) {
         Bundle args = new Bundle();
@@ -44,10 +46,12 @@ public class LotteryFragment extends BaseFragment implements LotteryInterface.Vi
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.framgent_lottery, container, false);
+        refresh_layout = rootView.findViewById(R.id.refresh_layout);
         lotto_list = rootView.findViewById(R.id.lotto_list);
         lotto_list.setLayoutManager(new LinearLayoutManager(getActivity()));
         superLottoAdapter = new SuperLottoAdapter(getActivity());
         lotto_list.setAdapter(superLottoAdapter);
+        refresh_layout.setOnRefreshListener(onRefreshListener);
         return rootView;
     }
 
@@ -87,10 +91,22 @@ public class LotteryFragment extends BaseFragment implements LotteryInterface.Vi
     @Override
     public void changeData(ArrayList<SuperLottoBean> lottoList) {
 
+        refresh_layout.setRefreshing(false);
+
         if (lottoList != null && superLottoAdapter != null) {
             superLottoAdapter.setList(lottoList);
         }
 
     }
+
+    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            if (getActivity() != null && CheckConnectStatusManager.checkNetWorkConnect(getActivity())) {
+                if (lotteryPresenter != null)
+                    lotteryPresenter.getSuperLotto638Data();
+            }
+        }
+    };
 
 }

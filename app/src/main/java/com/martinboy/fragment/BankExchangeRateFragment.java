@@ -26,9 +26,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class BankExchangeRateFragment extends BaseFragment implements ExchangeInterface.View {
 
+    private SwipeRefreshLayout refresh_layout;
     private ViewStub view_warning;
     private TextView text_warning;
     private ExchangePresenter exchangePresenter;
@@ -53,6 +55,7 @@ public class BankExchangeRateFragment extends BaseFragment implements ExchangeIn
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bank_exchange_rate, container, false);
+        refresh_layout = rootView.findViewById(R.id.refresh_layout);
         view_warning = rootView.findViewById(R.id.view_warning);
         View viewWaring = view_warning.inflate();
         view_warning.setVisibility(View.GONE);
@@ -81,6 +84,12 @@ public class BankExchangeRateFragment extends BaseFragment implements ExchangeIn
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+        refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData(nowPosition);
             }
         });
 
@@ -146,6 +155,8 @@ public class BankExchangeRateFragment extends BaseFragment implements ExchangeIn
 
     @Override
     public void getExchangeRateData(ArrayList<ExchangeBean> list) {
+
+        refresh_layout.setRefreshing(false);
 
         if (adapter != null) {
             view_warning.setVisibility(View.GONE);

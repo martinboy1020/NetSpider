@@ -37,57 +37,38 @@ public class SuperLottoAdapter extends RecyclerView.Adapter<SuperLottoAdapter.Vi
     public void onBindViewHolder(@NonNull SuperLottoAdapter.ViewHolder holder, int position) {
 
         if(holder.itemView.getTag() != null && holder.itemView.getTag().equals(superLottos.get(holder.getAdapterPosition()))) {
-
-            final SuperLottoBean superLotto = (SuperLottoBean) holder.itemView.getTag();
-            holder.layout_first_section.removeAllViews();
-
-            holder.text_drew_term.setText("期數: " + superLotto.getDrawTerm());
-            holder.text_date.setText("兌獎日期: " + superLotto.getDate());
-            holder.text_end_date.setText("最後兌換日期: " + superLotto.getEdate());
-            holder.text_sell_amount.setText("銷售金額: " + superLotto.getSellAmount());
-            holder.text_total.setText("獎金總額: " + superLotto.getTotal());
-
-            ArrayList<String> arrayList = superLottos.get(holder.getAdapterPosition()).getFirstSectionNumberList();
-
-            for(String num : arrayList) {
-                ItemLottoNumber lottoNumber = new ItemLottoNumber(context);
-                lottoNumber.setLottoNumber(num);
-                holder.layout_first_section.addView(lottoNumber);
-            }
-
-            ItemLottoNumber lottoNumber2 = new ItemLottoNumber(context);
-            lottoNumber2.setLottoNumber(superLotto.getSecondSectionNum());
-            lottoNumber2.setLottoNumberColor(ContextCompat.getColor(context, android.R.color.holo_red_light));
-
-            holder.layout_first_section.addView(lottoNumber2);
-
-
+            SuperLottoBean superLotto = (SuperLottoBean) holder.itemView.getTag();
+            refreshList(holder, superLotto);
         } else {
-
-            holder.itemView.setTag(superLottos.get(holder.getAdapterPosition()));
-            holder.layout_first_section.removeAllViews();
             SuperLottoBean superLotto = superLottos.get(holder.getAdapterPosition());
-            holder.text_drew_term.setText("期數: " + superLotto.getDrawTerm());
-            holder.text_date.setText("兌獎日期: " + superLotto.getDate());
-            holder.text_end_date.setText("最後兌換日期: " + superLotto.getEdate());
-            holder.text_sell_amount.setText("銷售金額: " + superLotto.getSellAmount());
-            holder.text_total.setText("獎金總額: " + superLotto.getTotal());
-
-            ArrayList<String> arrayList = superLottos.get(holder.getAdapterPosition()).getFirstSectionNumberList();
-
-            for(String num : arrayList) {
-                ItemLottoNumber lottoNumber = new ItemLottoNumber(context);
-                lottoNumber.setLottoNumber(num);
-                holder.layout_first_section.addView(lottoNumber);
-            }
-
-            ItemLottoNumber lottoNumber2 = new ItemLottoNumber(context);
-            lottoNumber2.setLottoNumber(superLotto.getSecondSectionNum());
-            lottoNumber2.setLottoNumberColor(ContextCompat.getColor(context, android.R.color.holo_red_light));
-
-            holder.layout_first_section.addView(lottoNumber2);
-
+            holder.itemView.setTag(superLottos.get(holder.getAdapterPosition()));
+            refreshList(holder, superLotto);
         }
+
+    }
+
+    private void refreshList(SuperLottoAdapter.ViewHolder holder, SuperLottoBean superLotto) {
+
+        holder.layout_first_section.removeAllViews();
+        holder.text_drew_term.setText("期數: " + superLotto.getDrawTerm());
+        holder.text_date.setText("兌獎日期: " + superLotto.getDate());
+        holder.text_end_date.setText("最後兌換日期: " + superLotto.getEdate());
+        holder.text_sell_amount.setText("銷售金額: " + superLotto.getSellAmount());
+        holder.text_total.setText("獎金總額: " + superLotto.getTotal());
+
+        ArrayList<String> arrayList = superLottos.get(holder.getAdapterPosition()).getFirstSectionNumberList();
+
+        for(String num : arrayList) {
+            ItemLottoNumber lottoNumber = new ItemLottoNumber(context);
+            lottoNumber.setLottoNumber(num);
+            holder.layout_first_section.addView(lottoNumber);
+        }
+
+        ItemLottoNumber lottoNumber2 = new ItemLottoNumber(context);
+        lottoNumber2.setLottoNumber(superLotto.getSecondSectionNum());
+        lottoNumber2.setLottoNumberColor(ContextCompat.getColor(context, android.R.color.holo_red_light));
+
+        holder.layout_first_section.addView(lottoNumber2);
 
     }
 

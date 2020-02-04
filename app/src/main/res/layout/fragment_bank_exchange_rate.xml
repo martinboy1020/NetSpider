@@ -10,18 +10,25 @@
         android:id="@+id/view_warning"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/layout_warning"/>
+        android:layout="@layout/layout_warning" />
 
     <Spinner
         android:id="@+id/spinner_coin"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:spinnerMode="dropdown"
-        android:dropDownVerticalOffset="40dp"/>
+        android:dropDownVerticalOffset="40dp"
+        android:spinnerMode="dropdown" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_view_exchange_rate"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view_exchange_rate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>
