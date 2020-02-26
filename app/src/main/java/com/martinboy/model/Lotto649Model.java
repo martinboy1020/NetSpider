@@ -1,10 +1,10 @@
-package com.martinboy.presenter;
+package com.martinboy.model;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.martinboy.bean.SuperLottoBean;
 import com.martinboy.parameter.Constants;
+import com.martinboy.presenter.LotteryInterface;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,9 +13,9 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 
-public class LotteryModel {
+public class Lotto649Model {
 
-    public static void parseSuperLotto638(final LotteryInterface.Presenter lotteryPresenterImpl) {
+    public static void parseSuperLotto649(final LotteryInterface.Presenter lotteryPresenterImpl) {
 
         ParseLotteryTask parseLotteryTask = new ParseLotteryTask(lotteryPresenterImpl);
         parseLotteryTask.execute();
@@ -27,13 +27,15 @@ public class LotteryModel {
         SuperLottoBean superLotto = new SuperLottoBean();
         ArrayList<String> superLottoFirstSectionList = new ArrayList<>();
 
+//        Log.d("tag1", "649 elements: " + elements.text());
+
         for (Element element : elements) {
 
-            Element drawTerm = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringDrawTerm + index);
-            Element date = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringDate + index);
-            Element eDate = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringEDate + index);
-            Element sellAmount = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringSellAmount + index);
-            Element total = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringTotal + index);
+            Element drawTerm = element.getElementById(Constants.Lottory649.stringSuperLottoTitle2 + Constants.Lottory649.stringDrawTerm + index);
+            Element date = element.getElementById(Constants.Lottory649.stringSuperLottoTitle2 + Constants.Lottory649.stringDate + index);
+            Element eDate = element.getElementById(Constants.Lottory649.stringSuperLottoTitle2 + Constants.Lottory649.stringEDate + index);
+            Element sellAmount = element.getElementById(Constants.Lottory649.stringSuperLottoTitle2 + Constants.Lottory649.stringSellAmount + index);
+            Element total = element.getElementById(Constants.Lottory649.stringSuperLottoTitle + Constants.Lottory649.stringTotal + index);
 
             superLotto.setDate(date.hasText() ? date.text() : "");
             superLotto.setEdate(eDate.hasText() ? eDate.text() : "");
@@ -41,13 +43,13 @@ public class LotteryModel {
             superLotto.setSellAmount(sellAmount.hasText() ? sellAmount.text() : "");
             superLotto.setTotal(total.hasText() ? total.text() : "");
 
-            Element s1 = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringNo1 + index);
-            Element s2 = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringNo2 + index);
-            Element s3 = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringNo3 + index);
-            Element s4 = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringNo4 + index);
-            Element s5 = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringNo5 + index);
-            Element s6 = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringNo6 + index);
-            Element s7 = element.getElementById(Constants.Lottory.stringSuperLottoTitle + Constants.Lottory.stringNo7 + index);
+            Element s1 = element.getElementById(Constants.Lottory649.stringSuperLottoTitle + Constants.Lottory649.stringNo1 + index);
+            Element s2 = element.getElementById(Constants.Lottory649.stringSuperLottoTitle + Constants.Lottory649.stringNo2 + index);
+            Element s3 = element.getElementById(Constants.Lottory649.stringSuperLottoTitle + Constants.Lottory649.stringNo3 + index);
+            Element s4 = element.getElementById(Constants.Lottory649.stringSuperLottoTitle + Constants.Lottory649.stringNo4 + index);
+            Element s5 = element.getElementById(Constants.Lottory649.stringSuperLottoTitle + Constants.Lottory649.stringNo5 + index);
+            Element s6 = element.getElementById(Constants.Lottory649.stringSuperLottoTitle + Constants.Lottory649.stringNo6 + index);
+            Element s7 = element.getElementById(Constants.Lottory649.stringSuperLottoTitle + Constants.Lottory649.stringNo7 + index);
 
             if (s1 != null && s1.hasText()) {
                 superLottoFirstSectionList.add(s1.text());
@@ -104,12 +106,10 @@ public class LotteryModel {
 
             try {
 
-                Document document = Jsoup.connect("https://www.taiwanlottery.com.tw/lotto/superlotto638/history.aspx").timeout(5000).get();
+                Document document = Jsoup.connect("https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx").timeout(5000).get();
                 final Elements elements = document.select("table");
 
                 if (!elements.isEmpty()) {
-
-                    Log.d("tag1", "elements.text(): " + elements.text());
 
                     for (int i = 0; i < 10; i++) {
                         SuperLottoBean superLotto = collectionLottoNumber(i, elements);

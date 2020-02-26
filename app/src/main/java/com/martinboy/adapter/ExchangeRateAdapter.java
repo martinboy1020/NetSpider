@@ -37,12 +37,16 @@ public class ExchangeRateAdapter extends RecyclerView.Adapter<ExchangeRateAdapte
                 .setText(String.format(context.getResources().getString(R.string.string_bank_name), list.get(holder.getAdapterPosition()).getBankName()));
         holder.text_moneyBuy
                 .setText(String.format(context.getResources().getString(R.string.string_money_buy), list.get(holder.getAdapterPosition()).getMoneyBuy()));
+
         holder.text_moneySell
                 .setText(String.format(context.getResources().getString(R.string.string_money_sell), list.get(holder.getAdapterPosition()).getMoneySell()));
+
         holder.text_nowBuy
                 .setText(String.format(context.getResources().getString(R.string.string_now_buy), list.get(holder.getAdapterPosition()).getNowBuy()));
+
         holder.text_nowSell
                 .setText(String.format(context.getResources().getString(R.string.string_now_sell), list.get(holder.getAdapterPosition()).getMoneySell()));
+
     }
 
     @Override
@@ -57,6 +61,10 @@ public class ExchangeRateAdapter extends RecyclerView.Adapter<ExchangeRateAdapte
     public void setList(ArrayList<ExchangeBean> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    public ArrayList<ExchangeBean> getList() {
+        return list;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

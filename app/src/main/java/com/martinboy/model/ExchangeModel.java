@@ -1,9 +1,10 @@
-package com.martinboy.presenter;
+package com.martinboy.model;
 
 import android.util.Log;
 import android.util.SparseArray;
 
 import com.martinboy.bean.ExchangeBean;
+import com.martinboy.presenter.ExchangeInterface;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,11 +12,12 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.regex.Pattern;
 
 public class ExchangeModel {
 
     private ExchangeInterface.Presenter presenterInterface;
-    private Thread thread;
 
     public ExchangeModel(ExchangeInterface.Presenter presenterInterface) {
         this.presenterInterface = presenterInterface;
@@ -23,7 +25,7 @@ public class ExchangeModel {
 
     public void parseHtmlFromFindRate(final String coinType) {
 
-        thread = new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -32,7 +34,7 @@ public class ExchangeModel {
                 ArrayList<ExchangeBean> moneyList = new ArrayList<>();
 
                 try {
-                    document = Jsoup.connect("https://www.findrate.tw/" + coinType + "/#.Xhl0h5Mzab8").timeout(5000).get();
+                    document = Jsoup.connect("https://www.findrate.tw/" + coinType + "&order=out1/#.XlZi9BMza1s").timeout(5000).get();
 
                     if (document != null) {
 
@@ -89,7 +91,7 @@ public class ExchangeModel {
         ArrayList<ExchangeBean> arrayList = new ArrayList<>();
         ExchangeBean bean = null;
 
-        for (int i = 1; i < elements.size(); i++) {
+        for (int i = 0; i < elements.size(); i++) {
 
             int target = i % 6;
 
@@ -136,8 +138,52 @@ public class ExchangeModel {
 
         }
 
+//        Collections.sort(arrayList, new MoneyChangeComparator());
+
         return arrayList;
 
+    }
+
+//    public void getBestBankOnlineChange(final ArrayList<ExchangeBean> list) {
+//
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                Collections.sort(list, new OnlineChangeComparator());
+//                if (presenterInterface != null)
+//                    presenterInterface.returnBankOnlineChange(list.get(0));
+//
+//            }
+//        });
+//
+//        thread.start();
+//
+//    }
+
+    static class MoneyChangeComparator implements Comparator {
+        public int compare(Object object1, Object object2) {
+            ExchangeBean p1 = (ExchangeBean) object1;
+            ExchangeBean p2 = (ExchangeBean) object2;
+            return Double.valueOf(p1.getMoneySell()).compareTo(Double.valueOf(p2.getMoneySell()));
+        }
+    }
+
+    static class OnlineChangeComparator implements Comparator {
+        public int compare(Object object1, Object object2) {
+            ExchangeBean p1 = (ExchangeBean) object1;
+            ExchangeBean p2 = (ExchangeBean) object2;
+            return Double.valueOf(p1.getMoneySell()).compareTo(Double.valueOf(p2.getMoneySell()));
+        }
+    }
+
+    private boolean isNumeric(String strNum) {
+        Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+        if (strNum == null) {
+            return false;
+        }
+        return pattern.matcher(strNum).matches();
     }
 
     public void cancelTasks() {

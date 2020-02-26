@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.martinboy.bean.SuperLottoBean;
+import com.martinboy.model.Lotto638Model;
+import com.martinboy.model.Lotto649Model;
 
 import java.util.ArrayList;
 
@@ -16,7 +18,11 @@ public class LotteryPresenter implements LotteryInterface.Presenter {
     }
 
     public void getSuperLotto638Data() {
-        LotteryModel.parseSuperLotto638(this);
+        Lotto638Model.parseSuperLotto638(this);
+    }
+
+    public void getSuperLotto649Data() {
+        Lotto649Model.parseSuperLotto649(this);
     }
 
     @Override

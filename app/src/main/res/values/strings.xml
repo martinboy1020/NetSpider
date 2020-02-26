@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NetSpider</string>
+    <string name="app_name">樂透與匯率查詢</string>
 
     <string name="string_bank_name">銀行: %1$s</string>
     <string name="string_money_buy">現金買入: %1$s</string>

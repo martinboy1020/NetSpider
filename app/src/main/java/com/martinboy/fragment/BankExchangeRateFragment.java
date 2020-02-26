@@ -32,7 +32,7 @@ public class BankExchangeRateFragment extends BaseFragment implements ExchangeIn
 
     private SwipeRefreshLayout refresh_layout;
     private ViewStub view_warning;
-    private TextView text_warning;
+    private TextView text_warning, text_best_money_change, text_best_online_change;
     private ExchangePresenter exchangePresenter;
     private RecyclerView recycle_view_exchange_rate;
     private Spinner spinner_coin;
@@ -55,6 +55,8 @@ public class BankExchangeRateFragment extends BaseFragment implements ExchangeIn
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bank_exchange_rate, container, false);
+        text_best_money_change = rootView.findViewById(R.id.text_best_money_change);
+        text_best_online_change = rootView.findViewById(R.id.text_best_online_change);
         refresh_layout = rootView.findViewById(R.id.refresh_layout);
         view_warning = rootView.findViewById(R.id.view_warning);
         View viewWaring = view_warning.inflate();
@@ -125,15 +127,15 @@ public class BankExchangeRateFragment extends BaseFragment implements ExchangeIn
 
         } else {
 
-            view_warning.setVisibility(View.VISIBLE);
-            text_warning.setText("No Internet");
+            refresh_layout.setRefreshing(false);
 
             if (getActivity() instanceof HomeActivity) {
 
-                HomeActivity homeActivity = (HomeActivity) getActivity();
-
-                if (homeActivity.nowPosition == 1) {
+                if(adapter != null && adapter.getList() != null && adapter.getList().size() > 0) {
                     Toast.makeText(getActivity(), "Bank No Internet", Toast.LENGTH_SHORT).show();
+                } else {
+                    view_warning.setVisibility(View.VISIBLE);
+                    text_warning.setText("No Internet");
                 }
 
             }
@@ -166,5 +168,17 @@ public class BankExchangeRateFragment extends BaseFragment implements ExchangeIn
             text_warning.setText("No Data");
         }
 
+    }
+
+    @Override
+    public void returnBankMoneyChange(ExchangeBean bean) {
+        String moneyChange = String.format("換現交易最佳選擇: %s 匯率: %s", bean.getBankName(), bean.getMoneySell());
+        text_best_money_change.setText(moneyChange);
+    }
+
+    @Override
+    public void returnBankOnlineChange(ExchangeBean bean) {
+//        String onlineChange = String.format("線上交易最佳選擇: %s 匯率: %s", bean.getBankName(), bean.getNowSell());
+//        text_best_online_change.setText(onlineChange);
     }
 }
